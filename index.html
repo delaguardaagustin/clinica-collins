@@ -366,5 +366,53 @@ body::before{content:"Oferta Cyber · Otomodelación $250.000 (precio normal $59
 <link rel="stylesheet" href="asistente.css">
 <script>window.ASISTENTE = {"negocio": "Clínica Collins", "persona": "Clínica Collins", "wa": "56951443781", "boton": "¿Quieres pedir hora?", "saludo": "Hola, soy el asistente de Clínica Collins. ¿Qué servicio necesitas?", "cuando": [{"t": "Esta semana", "m": "Quiero hora esta semana."}, {"t": "La próxima semana", "m": "Quiero hora la próxima semana."}, {"t": "Fin de semana", "m": "Prefiero el fin de semana."}, {"t": "Solo quiero consultar", "m": "Por ahora solo quiero consultar."}], "servicios": [{"n": "Otomodelación", "info": "Corrige la forma de las orejas sin cirugía, en una sola sesión y de forma ambulatoria.", "opts": [], "kw": "oto|oreja"}, {"n": "Toxina botulínica", "info": "Para suavizar las líneas de expresión de la frente y la mirada.", "opts": [], "kw": "botox|toxina|arruga|l[ií]nea"}, {"n": "Rinomodelación", "info": "Perfilado de la nariz con ácido hialurónico, sin cirugía.", "opts": [], "kw": "rino|nariz|hialur"}, {"n": "Armonización facial", "info": "Un plan para tu rostro, definido contigo en la evaluación.", "opts": [], "kw": "armoniz|rostro|facial|rejuvenec"}], "faq": [{"pri": true, "kw": "precio|valor|cuanto|costo|cobra|sale|presupuesto|cotiz", "r": "La otomodelación está en Oferta Cyber a $250.000 (precio normal $590.000). Los demás valores dependen de tu caso y se informan después de la evaluación."}, {"kw": "donde|direccion|ubicacion|comuna|zona|sector|llegan|van a", "r": "Estamos en Av. Claudio Arrau 7152, local 7, Pudahuel."}, {"kw": "horario|hora|abren|atienden|sabado|domingo|noche|urgencia|emergencia|24", "r": "Atendemos de lunes de 11:00 a 17:00 y martes a sábado de 9:00 a 18:00."}, {"kw": "pago|transferencia|efectivo|tarjeta|boleta|factura", "r": "La forma de pago se coordina directamente por WhatsApp."}, {"kw": "garantia|seguro|confianza|quien|experiencia", "r": "La atención está a cargo de Laura Meriño, enfermera. La clínica cuenta con resolución sanitaria de la SEREMI de Salud."}]};</script>
 <script src="asistente.js" defer></script>
+
+<style>
+.pop{position:fixed;inset:0;z-index:90;display:grid;place-items:center;padding:18px;background:rgba(15,13,10,.62);backdrop-filter:blur(3px);opacity:0;visibility:hidden;transition:opacity .35s ease,visibility .35s}
+.pop.ver{opacity:1;visibility:visible}
+.pop-caja{position:relative;width:min(430px,100%);background:#fff;border-radius:26px;overflow:hidden;text-align:center;box-shadow:0 40px 90px -30px #000;transform:translateY(40px) scale(.86) rotate(-2deg);transition:transform .6s cubic-bezier(.2,1.5,.4,1)}
+.pop.ver .pop-caja{transform:none;animation:popflota 3.6s ease-in-out .7s infinite}
+@keyframes popflota{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+.pop-arriba{position:relative;background:linear-gradient(135deg,var(--osc),color-mix(in srgb,var(--pri) 60%,var(--osc)));color:#fff;padding:34px 22px 30px;overflow:hidden}
+.pop-arriba::before{content:"";position:absolute;top:0;bottom:0;left:-60%;width:45%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.28),transparent);transform:skewX(-18deg);animation:popbrillo 2.8s ease-in-out infinite}
+@keyframes popbrillo{0%{left:-60%}60%,100%{left:130%}}
+.pop-eti{display:inline-block;background:var(--acento);color:var(--osc);font:800 .74rem/1 var(--font);letter-spacing:.14em;text-transform:uppercase;padding:8px 14px;border-radius:999px;animation:poplate 1.5s ease-in-out infinite}
+@keyframes poplate{0%,100%{transform:scale(1)}50%{transform:scale(1.09)}}
+.pop-arriba h3{font:700 1.5rem/1.15 var(--display);margin:16px 0 0;color:#fff}
+.pop-precio{display:block;font:800 clamp(2.6rem,11vw,3.4rem)/1 var(--display);color:var(--acento);margin-top:10px;letter-spacing:-.02em}
+.pop-antes{display:block;margin-top:8px;font-size:.95rem;opacity:.85}.pop-antes s{opacity:.8}
+.pop-abajo{padding:22px 22px 24px}
+.pop-abajo p{margin:0 0 16px;color:#4a4a55;font-size:.95rem}
+.pop-abajo .btn{width:100%;justify-content:space-between}
+.pop-nota{display:block;margin-top:12px;font-size:.76rem;color:#8a8a94}
+.pop-x{position:absolute;top:12px;right:12px;z-index:2;width:36px;height:36px;border-radius:50%;border:0;background:rgba(255,255,255,.18);color:#fff;font:400 1.4rem/1 system-ui,sans-serif;cursor:pointer}
+.pop-x:hover{background:rgba(255,255,255,.34)}
+@media (prefers-reduced-motion:reduce){.pop-caja,.pop.ver .pop-caja,.pop-eti,.pop-arriba::before{animation:none;transition:none;transform:none}}
+</style>
+<div class="pop" id="pop" role="dialog" aria-modal="true" aria-labelledby="popT">
+  <div class="pop-caja">
+    <button class="pop-x" id="popX" aria-label="Cerrar">&times;</button>
+    <div class="pop-arriba">
+      <span class="pop-eti">Oferta Cyber</span>
+      <h3 id="popT">Otomodelación sin cirugía</h3>
+      <span class="pop-precio">$250.000</span>
+      <span class="pop-antes">Precio normal <s>$590.000</s></span>
+    </div>
+    <div class="pop-abajo">
+      <p>Agenda tu evaluación por WhatsApp y pregunta por la oferta.</p>
+      <a class="btn btn-wa" href="https://wa.me/56951443781?text=Hola%2C%20vi%20su%20p%C3%A1gina%20web%20y%20quiero%20aprovechar%20la%20Oferta%20Cyber%20de%20otomodelaci%C3%B3n" target="_blank" rel="noopener">Quiero la oferta</a>
+      <span class="pop-nota">Oferta informada por la clínica el 12-10-2026.</span>
+    </div>
+  </div>
+</div>
+<script>
+(function(){var p=document.getElementById('pop');if(!p)return;var visto=false;try{visto=sessionStorage.getItem('popOferta')==='1'}catch(e){}
+function cerrar(){p.classList.remove('ver');try{sessionStorage.setItem('popOferta','1')}catch(e){}}
+if(!visto)setTimeout(function(){p.classList.add('ver')},2500);
+document.getElementById('popX').addEventListener('click',cerrar);
+p.addEventListener('click',function(ev){if(ev.target===p)cerrar()});
+document.addEventListener('keydown',function(ev){if(ev.key==='Escape')cerrar()});
+p.querySelector('a').addEventListener('click',cerrar);})();
+</script>
 </body>
 </html>
